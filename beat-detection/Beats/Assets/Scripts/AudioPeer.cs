@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (AudioSource))]
+// Ensure an AudioSource component is attached to the GameObject
+[RequireComponent(typeof(AudioSource))]
 public class AudioPeer : MonoBehaviour
 {
-    AudioSource _audioSource;
-    public float[] _samples = new float[512];
+    AudioSource _audioSource; // Reference to the AudioSource component
+    public static float[] _samples = new float[512]; // Array to store audio sample data
 
-    // Start is called before the first frame update
+    // Initialize AudioSource component
     void Start()
     {
-        _audioSource = GetComponent<AudioSource> ();
+        _audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    // Update audio samples each frame
     void Update()
     {
-        GetSpectrumAudioSource ();
+        GetSpectrumAudioSource();
     }
 
+    // Retrieve spectrum data from the audio source
     void GetSpectrumAudioSource()
     {
         _audioSource.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
